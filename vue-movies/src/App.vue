@@ -1,5 +1,15 @@
 <template>
     The App
+
+    <router-link class="menu-item" to="/">Home</router-link>
+    <router-link class="menu-item" to="/peliculas">Peliculas</router-link>
+    <router-link class="menu-item" to="/generos">Generos</router-link>
+    <router-link class="menu-item" to="/actores">Actores</router-link>
+    
+    <div>
+        <router-view></router-view>
+    </div>
+
     <Header :genres="genres" @show-movies="showMovies" />
     <ul>
         <li v-for="movie in movies">
@@ -65,3 +75,15 @@ export default {
     }
 }
 </script>
+<style scoped>
+.menu-item {
+    text-decoration: none;
+    margin: 0px  3px 0px 3px;
+    color: black;
+}
+
+.menu-item:hover {
+    color: goldenrod;
+    text-decoration: underline;
+}
+</style>
