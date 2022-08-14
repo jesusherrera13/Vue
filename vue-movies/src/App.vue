@@ -10,7 +10,7 @@
         <router-view></router-view>
     </div>
 
-    <Header :genres="genres" @show-movies="showMovies" />
+    
     <ul>
         <li v-for="movie in movies">
             {{ movie.title }}
@@ -20,13 +20,10 @@
 
 <script>
 
-import { ref } from 'vue';
 import axios from 'axios'
 
 import database from './database.js';
 import Header from './components/Header.vue';
-
-let movies_ = ref({});
 
 const getData = async () => {
 

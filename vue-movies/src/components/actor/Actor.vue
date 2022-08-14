@@ -33,7 +33,7 @@ export default {
             this.actores = response.data;
         },
         fullName(actor) {
-            return (actor.nombre + ' ' + actor.apellido1 + ' ' + actor.apellido2).trim();
+            return (actor.nombre + ' ' + actor.apellido1 + '' + (actor.apellido2 ? ' ' + actor.apellido2 : '')).trim();
         },
         actorNuevo() {
             router.push('/actores/nuevo');
