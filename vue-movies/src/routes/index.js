@@ -7,6 +7,7 @@ import Genero from '../components/genero/Genero.vue';
 import GeneroNuevo from '../components/genero/GeneroNuevo.vue';
 import Actor from '../components/actor/Actor.vue';
 import ActorNuevo from '../components/actor/ActorNuevo.vue';
+import ActorEdit from '../components/actor/ActorEdit.vue';
 
 const routes = [
     {
@@ -37,6 +38,10 @@ const routes = [
         name: 'actorNuevo',
         path: '/actores/nuevo',
         component: ActorNuevo
+    },
+    {
+        path: '/actores/edit/:id',
+        component: ActorEdit
     },
     {
         path: '/:pathMatch(.*)*',

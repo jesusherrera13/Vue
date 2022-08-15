@@ -1,8 +1,8 @@
 <template>
     <h1>Actores</h1>
-    <button @click="actorNuevo">Nuevo</button>
+    <button @click="nuevo">Nuevo</button>
     <ul>
-        <li v-for="actor in actores">
+        <li v-for="actor in actores" @click="edit(actor.id)">
             {{ fullName(actor) }}
         </li>
     </ul>
@@ -12,11 +12,6 @@
 
 import axios from 'axios';
 import router from '../../routes';
-
-const actorNuevo = () => {
-    console.log('dancing')
-    router.push('/actores/nuevo');
-};
 
 export default {
     data() {
@@ -35,8 +30,11 @@ export default {
         fullName(actor) {
             return (actor.nombre + ' ' + actor.apellido1 + '' + (actor.apellido2 ? ' ' + actor.apellido2 : '')).trim();
         },
-        actorNuevo() {
+        nuevo() {
             router.push('/actores/nuevo');
+        },
+        edit(id) {
+            router.push('/actores/edit/' + id);
         }
     },
     computed: {
