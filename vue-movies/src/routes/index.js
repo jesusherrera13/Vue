@@ -5,6 +5,7 @@ import Pelicula from '../components/Pelicula.vue';
 import NotFound from '../components/NotFound.vue';
 import Genero from '../components/genero/Genero.vue';
 import GeneroNuevo from '../components/genero/GeneroNuevo.vue';
+import GeneroEdit from '../components/genero/GeneroEdit.vue';
 import Actor from '../components/actor/Actor.vue';
 import ActorNuevo from '../components/actor/ActorNuevo.vue';
 import ActorEdit from '../components/actor/ActorEdit.vue';
@@ -30,6 +31,10 @@ const routes = [
         component: GeneroNuevo
     },
     {
+        path: '/genero/:id/',
+        component: GeneroEdit
+    },
+    {
         name: 'actores',
         path: '/actores',
         component: Actor
@@ -40,7 +45,7 @@ const routes = [
         component: ActorNuevo
     },
     {
-        path: '/actores/edit/:id',
+        path: '/actores/:id',
         component: ActorEdit
     },
     {

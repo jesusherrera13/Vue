@@ -34,7 +34,7 @@ export default {
             router.push('/actores/nuevo');
         },
         edit(id) {
-            router.push('/actores/edit/' + id);
+            router.push('/actores/' + id);
         }
     },
     computed: {

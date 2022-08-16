@@ -2,7 +2,7 @@
     <h1>Generos</h1>
     <button @click="nuevo">Nuevo</button>
     <ul>
-        <li v-for="genero in generos">{{ genero.nombre }}</li>
+        <li v-for="genero in generos" @click="edit(genero)">{{ genero.nombre }}</li>
     </ul>
 </template>
 
@@ -26,6 +26,9 @@ export default {
         },
         nuevo() {
             router.push('/genero/nuevo');
+        },
+       edit(genero) {
+            router.push('/genero/' + genero.id);
         }
     }
 }
