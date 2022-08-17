@@ -1,7 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import Home from '../components/Home.vue';
-import Pelicula from '../components/Pelicula.vue';
+import Pelicula from '../components/pelicula/Pelicula.vue';
+import PeliculaEdit from '../components/pelicula/PeliculaEdit.vue';
+import PeliculaNuevo from '../components/pelicula/PeliculaNuevo.vue';
 import NotFound from '../components/NotFound.vue';
 import Genero from '../components/genero/Genero.vue';
 import GeneroNuevo from '../components/genero/GeneroNuevo.vue';
@@ -20,6 +22,14 @@ const routes = [
         name: 'peliculas',
         path: '/peliculas',
         component: Pelicula
+    },
+    {
+        path: '/pelicula/nuevo',
+        component: PeliculaNuevo
+    },
+    {
+        path: '/pelicula/:id/edit',
+        component: PeliculaEdit
     },
     {
         name: 'generos',

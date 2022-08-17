@@ -23,6 +23,17 @@ export default {
         async getData() {
             let response = await axios.get('http://peliculas.localhost/api/genero');
             this.generos = response.data;
+
+            this.generos.sort(function(a, b) {
+
+                if(a.nombre > b.nombre) {
+                    return 1;
+                }
+                
+                if(a.nombre < b.nombre) {
+                    return -1;
+                }
+            });
         },
         nuevo() {
             router.push('/genero/nuevo');
