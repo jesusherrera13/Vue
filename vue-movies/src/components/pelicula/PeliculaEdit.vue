@@ -5,6 +5,11 @@
     Año:
     <input type="text" v-model="pelicula.anio">
     <br />
+    Género
+    <select>
+        <option v-for="genero in generos">{{ genero }}</option>
+    </select>
+    <br />
     <button @click="guardar">Guardar</button>
     <button @click="cancelar">Cancelar</button>
 </template>
@@ -17,7 +22,8 @@ export default {
         return {
             pelicula: {
 
-            }
+            },
+            generos: []
         }
     },
     mounted() {
@@ -27,6 +33,9 @@ export default {
         async getData() {
             let response = await axios.get('http://peliculas.localhost/api/pelicula/' + this.$route.params.id);
             this.pelicula = response.data;
+
+            await axios.get('http://peliculas.localhost/api/genero/');
+            this.generos = response.data;
         },
         async guardar() {
             let response = await axios.put('http://peliculas.localhost/api/pelicula/' + this.$route.params.id, this.pelicula);
