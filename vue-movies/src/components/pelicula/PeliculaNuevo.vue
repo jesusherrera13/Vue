@@ -6,9 +6,9 @@
     <input type="number" v-model="pelicula.anio">
     <br />
     Género
-    <select v-model="pelicula.generos" multiple>
-        <option v-for="genero in generos" v-bind:value="genero.id">{{ genero.nombre }}</option>
-    </select>{{ pelicula.generos }}
+    <select multiple>
+        <option v-for="genero in generos" v-bind:value="genero.id">{{ genero }}</option>
+    </select>{{ generos }}
     <br />
     <button @click="guardar">Guardar</button>
     <button @click="cancelar">Cancelar</button>
@@ -47,6 +47,7 @@ export default {
                 if(a.nombre > b.nombre) return 1;
                 else if(a.nombre < b.nombre) return -1;
             });
+            console.log(this.generos)
         }
     }
 }
