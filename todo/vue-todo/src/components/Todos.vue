@@ -4,7 +4,7 @@
             Title
             <input type="text" v-model="todo.title">
             <br />
-            <button @click="add">Add</button>
+            <button @click="save">{{ todo.id ? 'Save' : 'Add' }}</button>
             <button @click="newTodo">New</button>
             <div v-if="todo.id">
 
@@ -13,6 +13,7 @@
                 <textarea v-model="todo.comment"></textarea>
                 <br />
                 <button @click="addComment">Add comment</button>
+                <input type="checkbox" v-model="todo.done" value="1">
             </div>
         </div>
         <div >
@@ -40,12 +41,19 @@ export default {
             let response = await axios.get('http://127.0.0.1:8000/api/todo');
             this.todos = response.data;
         },
-        async add() {
-            let response = await axios.post('http://127.0.0.1:8000/api/todo', this.todo);
-            if(response.status == 201) {
+        async save() {
+            if(this.todo.title) {
+                let response;
+                if(this.todo.id) response = await axios.put('http://127.0.0.1:8000/api/todo/' + this.todo.id, { id: this.todo.id, done: this.todo.done });
+                else response = await axios.post('http://127.0.0.1:8000/api/todo', this.todo);
 
-                this.getData();
-                this.todo = {};
+                if(response.status == 201) {
+                    this.getData();
+                    this.todo = {};
+                }
+                else if(response.status == 200) {
+                    this.getData();
+                }
             }
         },
         edit(todo) {

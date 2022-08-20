@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Todo;
 use Illuminate\Http\Request;
 use App\Http\Requests\TodoCreateRequest;
+use App\Http\Requests\TodoUpdateRequest;
 
 class TodoController extends Controller
 {
@@ -50,9 +51,12 @@ class TodoController extends Controller
      * @param  \App\Models\Todo  $todo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Todo $todo)
+    public function update(TodoUpdateRequest $request, Todo $todo)
     {
-        //
+        $validated = $request->validated();
+        $todo->update($validated);
+
+        return response()->json([]);
     }
 
     /**
