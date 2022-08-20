@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Todo;
 use Illuminate\Http\Request;
+use App\Http\Requests\TodoCreateRequest;
 
 class TodoController extends Controller
 {
@@ -23,9 +24,12 @@ class TodoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TodoCreateRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $todo = Todo::save($validated);
+
+        return response()->json([], 201);
     }
 
     /**
