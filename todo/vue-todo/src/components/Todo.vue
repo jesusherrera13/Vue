@@ -8,7 +8,7 @@
                 {{ dateFormat }}
             </span>
         </div>
-        <div class="comment">Comments</div>
+        <div class="comment" v-for="comment in todo.comments">{{ comment.comment }}</div>
     </div>
 </template>
 <script>

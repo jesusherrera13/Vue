@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use App\Http\Requests\CommentCreateRequest;
 
 class CommentController extends Controller
 {
@@ -14,7 +15,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        return Comment::with('todo')->get();
     }
 
     /**
@@ -23,9 +24,12 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CommentCreateRequest $request)
     {
-        //
+        $validated = $request->validated();
+        Comment::create($validated);
+
+        return response()->json([], 201);
     }
 
     /**

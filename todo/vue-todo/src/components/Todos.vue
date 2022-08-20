@@ -1,11 +1,23 @@
 <template>
-    Title
-    <input type="text" v-model="todo.title">
-    <br />
-    <button @click="add">Add</button>
-    <br />
-    <div >
-        <Todo v-for="todo in todos" @click="edit(todo)" v-bind:todo="todo" />
+    <div class="container">
+        <div>
+            Title
+            <input type="text" v-model="todo.title">
+            <br />
+            <button @click="add">Add</button>
+            <button @click="newTodo">New</button>
+            <div v-if="todo.id">
+
+                Comments
+                <br />
+                <textarea v-model="todo.comment"></textarea>
+                <br />
+                <button @click="addComment">Add comment</button>
+            </div>
+        </div>
+        <div >
+            <Todo v-for="todo in todos" @click="edit(todo)" v-bind:todo="todo" />
+        </div>
     </div>
 </template>
 <script>
@@ -38,6 +50,16 @@ export default {
         },
         edit(todo) {
             this.todo = todo;
+        },
+        newTodo(){
+            this.todo = {};
+        }, 
+        async addComment() {
+            let response = await axios.post('http://127.0.0.1:8000/api/comment', {todo_id: this.todo.id,comment: this.todo.comment});
+            if(response.status == 201) {
+                this.getData();
+                this.todo.comment = '';
+            }
         }
     },
     components: {
@@ -45,3 +67,8 @@ export default {
     } 
 }
 </script>
+<style scoped>
+.container {
+    display: flex;
+}
+</style>
