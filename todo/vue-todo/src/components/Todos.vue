@@ -4,14 +4,14 @@
     <br />
     <button @click="add">Add</button>
     <br />
-    <ul>
-        <li v-for="todo in todos">{{ todo.title }}</li>
-    </ul> 
+    <div >
+        <Todo v-for="todo in todos" @click="edit(todo)" v-bind:todo="todo" />
+    </div>
 </template>
 <script>
 
 import axios from 'axios';
-import router from '../routes';
+import Todo from './Todo.vue';
 
 export default {
     data() {
@@ -30,8 +30,18 @@ export default {
         },
         async add() {
             let response = await axios.post('http://127.0.0.1:8000/api/todo', this.todo);
-            if(response.status == 201) this.getData();
+            if(response.status == 201) {
+
+                this.getData();
+                this.todo = {};
+            }
+        },
+        edit(todo) {
+            this.todo = todo;
         }
+    },
+    components: {
+        Todo
     } 
 }
 </script>

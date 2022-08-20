@@ -27,7 +27,7 @@ class TodoController extends Controller
     public function store(TodoCreateRequest $request)
     {
         $validated = $request->validated();
-        $todo = Todo::save($validated);
+        $todo = Todo::create($validated);
 
         return response()->json([], 201);
     }
