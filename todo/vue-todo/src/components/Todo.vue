@@ -7,11 +7,16 @@
             <span class="item date">
                 {{ dateFormat }}
             </span>
+            <span class="item">
+                <input type="checkbox" :value="1" v-model="todo.done" @click="done(todo)">
+            </span>
         </div>
         <div class="comment" v-for="comment in todo.comments">{{ comment.comment }}</div>
     </div>
 </template>
 <script>
+import axios from 'axios';
+
 export default {
     props: {
         todo: {
@@ -21,7 +26,21 @@ export default {
     computed: {
         dateFormat() {
             return this.todo.created_at.substring(0, 10);
+        },
+        toggleCheck() {
+            console.log(this.todo.done)
+            return this.todo.done == 1 ? true : false;
         }
+    },
+    methods: {
+        async done(todo) {
+            // console.log(todo)
+            let response = await axios.put('http://127.0.0.1:8000/api/todo/' + todo.id, {id: todo.id, title: todo.title, done: todo.done});
+            if(response.status == 200) {
+                
+            }
+        },
+        
     }
 }
 </script>
@@ -38,6 +57,7 @@ export default {
 .title {
     font-size: 18px;
     font-weight: bold;
+    width: 100px;
 }
 .date {
     color: #888;

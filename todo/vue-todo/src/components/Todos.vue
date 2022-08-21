@@ -78,5 +78,14 @@ export default {
 <style scoped>
 .container {
     display: flex;
+    flex-direction: row;
+}
+
+.container > div {
+    flex: 1 1 auto;
+}
+
+.container > :nth-child(1) {
+    width: 200px;
 }
 </style>
