@@ -47,8 +47,8 @@ export default {
             this.todos = response.data;
             this.data = this.todos;
             this.data.sort(function(a, b) {
-                if(a.created_at > b.created_at) return 1;
-                if(a.created_at < b.created_at) return -1;
+                if(a.created_at > b.created_at) return -1;
+                if(a.created_at < b.created_at) return 1;
             });
         },
         async save() {
@@ -74,7 +74,9 @@ export default {
             this.todo = {};
         }, 
         async addComment() {
-            let response = await axios.post('http://127.0.0.1:8000/api/comment', {todo_id: this.todo.id,comment: this.todo.comment});
+            
+            let response = await axios.post('http://127.0.0.1:8000/api/comment', {todo_id: this.todo.id, comment: this.todo.comment});
+
             if(response.status == 201) {
                 this.getData();
                 this.todo.comment = '';

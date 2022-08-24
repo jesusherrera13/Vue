@@ -7,6 +7,9 @@
             <span class="item date">
                 {{ dateFormat }}
             </span>
+            <span class="item date">
+                {{ timeFormat }}
+            </span>
             <span class="item">
                 <input type="checkbox" :value="1" :model="todo.done" :checked="todo.done" @click="done(todo)">
             </span>
@@ -26,6 +29,9 @@ export default {
     computed: {
         dateFormat() {
             return this.todo.created_at.substring(0, 10);
+        },
+        timeFormat() {
+            return this.todo.created_at.substring(11, 19);
         }
     },
     methods: {
