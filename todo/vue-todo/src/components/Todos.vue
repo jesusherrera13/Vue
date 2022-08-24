@@ -1,5 +1,8 @@
 <template>
     <div class="container">
+        <ul v-if="errors.length">
+            <li v-for="error in errors"> {{ error }}</li>
+        </ul>
         <div>
             Title
             <input type="text" v-model="todo.title">
@@ -13,11 +16,11 @@
                 <textarea v-model="todo.comment"></textarea>
                 <br />
                 <button @click="addComment">Add comment</button>
-                <input type="checkbox" v-model="todo.done" value="1">
+                <input type="checkbox" v-model="todo.done" v-bind:value="1" >
             </div>
         </div>
         <div >
-            <Todo v-for="todo in todos" @click="edit(todo)" v-bind:todo="todo" />
+            <Todo v-for="todo in data" @click="edit(todo)" v-bind:todo="todo" />
         </div>
     </div>
 </template>
@@ -30,7 +33,9 @@ export default {
     data() {
         return {
             todo: {},
-            todos: []
+            todos: [],
+            errors: [],
+            data: [],
         }
     },
     mounted() {
@@ -40,11 +45,17 @@ export default {
         async getData() {
             let response = await axios.get('http://127.0.0.1:8000/api/todo');
             this.todos = response.data;
+            this.data = this.todos;
+            this.data.sort(function(a, b) {
+                if(a.created_at > b.created_at) return 1;
+                if(a.created_at < b.created_at) return -1;
+            });
         },
         async save() {
+
             if(this.todo.title) {
                 let response;
-                if(this.todo.id) response = await axios.put('http://127.0.0.1:8000/api/todo/' + this.todo.id, { id: this.todo.id, done: this.todo.done });
+                if(this.todo.id) response = await axios.put('http://127.0.0.1:8000/api/todo/' + this.todo.id, { id: this.todo.id, title: this.todo.title, done: this.todo.done });
                 else response = await axios.post('http://127.0.0.1:8000/api/todo', this.todo);
 
                 if(response.status == 201) {

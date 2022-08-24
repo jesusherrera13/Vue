@@ -8,7 +8,7 @@
                 {{ dateFormat }}
             </span>
             <span class="item">
-                <input type="checkbox" :value="1" v-model="todo.done" @click="done(todo)">
+                <input type="checkbox" :value="1" :model="todo.done" :checked="todo.done" @click="done(todo)">
             </span>
         </div>
         <div class="comment" v-for="comment in todo.comments">{{ comment.comment }}</div>
@@ -26,10 +26,6 @@ export default {
     computed: {
         dateFormat() {
             return this.todo.created_at.substring(0, 10);
-        },
-        toggleCheck() {
-            console.log(this.todo.done)
-            return this.todo.done == 1 ? true : false;
         }
     },
     methods: {
