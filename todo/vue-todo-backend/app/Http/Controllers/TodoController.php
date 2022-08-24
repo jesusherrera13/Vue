@@ -16,7 +16,10 @@ class TodoController extends Controller
      */
     public function index()
     {
-        return Todo::with('comments')->get();
+        return Todo::with('comments')
+                ->leftJoin('categories','categories.id','todos.categorie_id')
+                ->select('todos.*','categories.name as categorie')
+                ->get();
     }
 
     /**

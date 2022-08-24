@@ -4,6 +4,9 @@
             <span class="item title">
                 {{ todo.title }}
             </span>
+            <span class="item">
+                {{ todo.categorie }}
+            </span>
             <span class="item date">
                 {{ dateFormat }}
             </span>
@@ -57,7 +60,6 @@ export default {
 }
 
 .title {
-    font-size: 18px;
     font-weight: bold;
     width: 100px;
 }

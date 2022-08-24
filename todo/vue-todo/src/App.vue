@@ -1,5 +1,5 @@
 <template>
-    <h1>The App</h1>
+    <h1>Todos</h1>
     <div>
         <router-link to="/">Todos</router-link>
         <router-link to="/categorie">Categories</router-link>

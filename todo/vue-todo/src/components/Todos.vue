@@ -8,13 +8,11 @@
             </div>
             Title
             <input type="text" v-model="todo.title">
-            <br />
             Categorie
             <select v-model="todo.categorie_id">
                 <option></option>
                 <option v-for="categorie in categories" :value="categorie.id">{{ categorie.name }}</option>
             </select>
-            <br />
             <button @click="save">{{ todo.id ? 'Save' : 'Add' }}</button>
             <button @click="newTodo">New</button>
             <div v-if="todo.id">
@@ -133,15 +131,6 @@ export default {
 </script>
 <style scoped>
 .container {
-    display: flex;
-    flex-direction: row;
-}
-
-.container > div {
-    flex: 1 1 auto;
-}
-
-.container > :nth-child(1) {
-    width: 200px;
+    font-size: 14px;
 }
 </style>
