@@ -24,7 +24,8 @@ class TodoCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|min:2|max:255'
+            'title' => 'required|min:2|max:255',
+            'categorie_id' => 'required|integer'
         ];
     }
 }

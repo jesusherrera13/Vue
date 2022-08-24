@@ -25,6 +25,7 @@ class TodoUpdateRequest extends FormRequest
     {
         return [
             'title' => 'required|min:2|max:255',
+            'categorie_id' => 'required|integer',
             'done' => 'nullable|integer'
         ];
     }

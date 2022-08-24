@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Categoria;
+use App\Models\Categorie;
 use Illuminate\Http\Request;
-use App\Http\Requests\CategoriaCreateRequest;
+use App\Http\Requests\CategorieCreateRequest;
 
-class CategoriaController extends Controller
+class CategorieController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        return Categoria::all();
+        return Categorie::all();
     }
 
     /**
@@ -24,11 +24,11 @@ class CategoriaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoriaCreateRequest $request)
+    public function store(CategorieCreateRequest $request)
     {
         $validated = $request->validated();
         
-        Categoria::create($validated);
+        Categorie::create($validated);
 
         return response()->json([], 201);
     }
@@ -36,10 +36,10 @@ class CategoriaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Categoria  $categoria
+     * @param  \App\Models\Categorie  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function show(Categoria $categoria)
+    public function show(Categorie $categoria)
     {
         //
     }
@@ -48,10 +48,10 @@ class CategoriaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Categoria  $categoria
+     * @param  \App\Models\Categorie  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Categoria $categoria)
+    public function update(Request $request, Categorie $categoria)
     {
         //
     }
@@ -59,10 +59,10 @@ class CategoriaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Categoria  $categoria
+     * @param  \App\Models\Categorie  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Categoria $categoria)
+    public function destroy(Categorie $categoria)
     {
         //
     }

@@ -17,7 +17,7 @@ class CreateTodosTable extends Migration
             $table->id();
             $table->string('title');
             $table->tinyInteger('done')->nullable();
-            $table->foreignId('categoria_id')->constrained('categorias');
+            $table->foreignId('categorie_id')->constrained('categories');
             $table->timestamps();
         });
     }

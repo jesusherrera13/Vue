@@ -1,11 +1,19 @@
 <template>
     <div class="container">
-        <ul v-if="errors.length">
-            <li v-for="error in errors"> {{ error }}</li>
-        </ul>
         <div>
+            <div>
+                <ul v-if="errors.length">
+                    <li v-for="error in errors"> {{ error }}</li>
+                </ul>
+            </div>
             Title
             <input type="text" v-model="todo.title">
+            <br />
+            Categorie
+            <select v-model="todo.categorie_id">
+                <option></option>
+                <option v-for="categorie in categories" :value="categorie.id">{{ categorie.name }}</option>
+            </select>
             <br />
             <button @click="save">{{ todo.id ? 'Save' : 'Add' }}</button>
             <button @click="newTodo">New</button>
@@ -17,6 +25,7 @@
                 <br />
                 <button @click="addComment">Add comment</button>
                 <input type="checkbox" v-model="todo.done" v-bind:value="1" >
+                
             </div>
         </div>
         <div >
@@ -36,10 +45,12 @@ export default {
             todos: [],
             errors: [],
             data: [],
+            categories: [],
         }
     },
     mounted() {
         this.getData();
+        this.getCategories();
     },
     methods: {
         async getData() {
@@ -52,19 +63,41 @@ export default {
             });
         },
         async save() {
+            this.errors = [];
 
-            if(this.todo.title) {
-                let response;
-                if(this.todo.id) response = await axios.put('http://127.0.0.1:8000/api/todo/' + this.todo.id, { id: this.todo.id, title: this.todo.title, done: this.todo.done });
-                else response = await axios.post('http://127.0.0.1:8000/api/todo', this.todo);
+            if(!this.todo.title) this.errors.push('Write the title');
+            if(!this.todo.categorie_id) this.errors.push('Select the categorie');
 
-                if(response.status == 201) {
-                    this.getData();
-                    this.todo = {};
-                }
-                else if(response.status == 200) {
-                    this.getData();
-                }
+            if(this.errors.length) return false;
+            
+            let response;
+            
+            if(this.todo.id) response = await axios.put('http://127.0.0.1:8000/api/todo/' + this.todo.id, 
+                                                    { id: this.todo.id, title: this.todo.title,categorie_id: this.todo.categorie_id, done: this.todo.done }
+                                                )
+                                                .catch(function(error) {
+                                                    console.log(error.toJSON());
+                                                });
+
+            else {
+                let errors = [];
+                response = await axios.post('http://127.0.0.1:8000/api/todo', this.todo)
+                                        .catch(function(error) {
+                                            errors = error.response.data.errors;
+                                        });
+                
+                let errors_ = [];
+                
+                Object.keys(errors).forEach((e, i) => {
+                    errors_.push(errors[e][0]);
+                });
+
+                this.errors = errors_;
+            }
+
+            if(response.status == 201 || response.status == 200) {
+                this.getData();
+                if(response.status == 201) this.todo = {};
             }
         },
         edit(todo) {
@@ -75,12 +108,22 @@ export default {
         }, 
         async addComment() {
             
-            let response = await axios.post('http://127.0.0.1:8000/api/comment', {todo_id: this.todo.id, comment: this.todo.comment});
+            let response = await axios.post('http://127.0.0.1:8000/api/comment', {todo_id: this.todo.id, comment: this.todo.comment})
+                                        .catch(function(error) {
+                                            console.log(error.toJSON());
+                                        });
 
             if(response.status == 201) {
                 this.getData();
                 this.todo.comment = '';
             }
+        },
+        async getCategories() {
+            let response = await axios.get('http://127.0.0.1:8000/api/categorie');
+            this.categories = response.data.sort((a, b) => {
+                if(a.name > b.name) return 1;
+                if(a.name < b.name) return -1;
+            });
         }
     },
     components: {

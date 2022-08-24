@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Todos from '../components/Todos.vue';
 import NotFound from '../components/NotFound.vue';
-import Categoria from '../components/Categoria.vue';
+import Categorie from '../components/Categorie.vue';
 
 const routes = [
     {
@@ -9,8 +9,8 @@ const routes = [
         component: Todos
     },
     {
-        path: '/categoria',
-        component: Categoria
+        path: '/categorie',
+        component: Categorie
     },
     {
         path:'/:pathMatch(.*)*',

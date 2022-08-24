@@ -34,7 +34,7 @@ export default {
     methods: {
         async getData() {
 
-            let response = await axios.get('http://127.0.0.1:8000/api/categoria');
+            let response = await axios.get('http://127.0.0.1:8000/api/categorie');
 
             this.categories = response.data;
             this.categories.sort(function(a, b) {
@@ -43,12 +43,11 @@ export default {
             });
         },
         async save() {
-            console.log(this.category)
             if(!this.category.name) this.errors.push('Write down the category name');
 
             if(this.errors.length > 0) return false;
 
-            let response = await axios.post('http://127.0.0.1:8000/api/categoria', this.category);
+            let response = await axios.post('http://127.0.0.1:8000/api/categorie', this.category);
             if(response.status == 201) this.getData();
 
             this.category = {name: null};
