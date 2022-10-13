@@ -18,10 +18,18 @@
         <br />
         Marcas de vehículos
         <br />
-        <select v-model="marca_id" @change="setCars">
+        <select v-model="marca_id" @change="setCars('')">
             <option></option>
             <option v-for="marca in marcas" v-bind:value="marca.id">{{marca.nombre}}</option>
         </select>
+        <button @mouseover="setCars(1)">Toyota</button>
+        <button @mouseover="setCars(2)">Honda</button>
+        <button @mouseover="setCars(3)" @mouseout="marca_id=null">Nissan</button>
+        <br />
+        <br />
+        <button @click="showModelX=!showModelX">Show me the Model X</button>
+        <img v-show="showModelX" src="model_x.png">
+        <br />
         Marca Seleccionada: {{marca_id}}
         <br />
         Logo:
@@ -49,6 +57,7 @@ const App = {
             contador: null,
             marca_id: null,
             vehiculos: [],
+            showModelX: false,
             marcas: [
                 {
                     id: 1, 
@@ -96,9 +105,17 @@ const App = {
         incrementar() {
             this.contador++;
         },
-        setCars() {
-            var tmp = this.marcas.filter(item => item.id === this.marca_id);
-           this.vehiculos = tmp[0].vehiculos;
+        setCars(value = null) {
+            // console.log(marca_id)
+            if(value) this.marca_id = value;
+            console.log(this.marca_id)
+            
+            this.vehiculos = [];
+            
+            if(this.marca_id) {
+                var tmp = this.marcas.filter(item => item.id === this.marca_id);
+                this.vehiculos = tmp[0].vehiculos;
+            }
         }
     }
 }
