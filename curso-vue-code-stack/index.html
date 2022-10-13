@@ -24,6 +24,13 @@
         </select>
         Marca Seleccionada: {{marca_id}}
         <br />
+        Logo:
+        
+        <img v-if="marca_id == 1" src="toyota.png">
+        <img v-else-if="marca_id == 2" src="honda.jpg">
+        <img v-else-if="marca_id == 3" src="nissan.png">
+        <img v-else="marca_id == 3" src="tesla.png">
+        <br />
         <div v-for="vehiculo in vehiculos">
             <input  type="radio" name="radio-vehiculo" v-bind:value="vehiculo.id" :key="vehiculo.id"> {{ vehiculo.nombre }}
         </div>
@@ -90,7 +97,7 @@ const App = {
             this.contador++;
         },
         setCars() {
-            var tmp = this.marcas.filter(item => item.id == this.marca_id);
+            var tmp = this.marcas.filter(item => item.id === this.marca_id);
            this.vehiculos = tmp[0].vehiculos;
         }
     }
