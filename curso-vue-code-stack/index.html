@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{titulo}}</h1>
+        Título:
+        Contador: {{contador}}
+        <br />
+        <input type="text" v-model="titulo">
+        <br />
+        <button @click="incrementar">Incrementar</button>
+        <br />
+        Marcas de vehículos
+        <br />
+        <select v-model="marca_id" @change="setCars">
+            <option></option>
+            <option v-for="marca in marcas" v-bind:value="marca.id">{{marca.nombre}}</option>
+        </select>
+        Marca Seleccionada: {{marca_id}}
+        <br />
+        <div v-for="vehiculo in vehiculos">
+            <input  type="radio" name="radio-vehiculo" v-bind:value="vehiculo.id" :key="vehiculo.id"> {{ vehiculo.nombre }}
+        </div>
+        <br />
+        <span v-for="vehiculo in vehiculos">
+            <input type="checkbox" v-bind:value="vehiculo.id" :key="vehiculo.id"> {{ vehiculo.nombre }}
+        </span>
+    </div>
+</body>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script>
+const App = {
+    data() {
+        return {
+            titulo: 'Follow Rivers',
+            contador: null,
+            marca_id: null,
+            vehiculos: [],
+            marcas: [
+                {
+                    id: 1, 
+                    nombre: "Toyota",
+                    vehiculos: [
+                        {
+                            id: 1, nombre: "Corolla"
+                        },
+                        {
+                            id: 2, nombre: "Yaris"
+                        }
+                    ]
+                },
+                {
+                    id: 2, 
+                    nombre: "Honda",
+                    vehiculos: [
+                        {
+                            id: 1, nombre: "Civic"
+                        },
+                        {
+                            id: 2, nombre: "City"
+                        }
+                    ]
+                },
+                {
+                    id: 3, 
+                    nombre: "Nissan",
+                    vehiculos: [
+                        {
+                            id: 1, nombre: "X-Trail"
+                        },
+                        {
+                            id: 2, nombre: "Sentra"
+                        }
+                    ]
+                },
+            ]
+        }
+    },
+    mounted() {
+        this.contador = 0;
+    },
+    methods: {
+        incrementar() {
+            this.contador++;
+        },
+        setCars() {
+            var tmp = this.marcas.filter(item => item.id == this.marca_id);
+           this.vehiculos = tmp[0].vehiculos;
+        }
+    }
+}
+
+Vue.createApp(App).mount('#app');
+
+</script>
+</html>
