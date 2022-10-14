@@ -11,12 +11,12 @@
             border-radius: 50px;
         }
 
-        .square {
+        .squared {
             width: 50px;
             height: 50px;
         }
-        .block {
-            
+        .goldenRod {
+            background-color: goldenrod;
         }
     </style>
 </head>
@@ -24,11 +24,21 @@
     <div id="app">
         <h1>{{titulo}}</h1>
         <div class="container">
-            <div class="square teal" v-bind:class="{rounded}">
+            <div class="squared teal" v-bind:class="{rounded: rounded, squared}">
                 
             </div>
         </div>
-        <button v-on:click=""></button>
+        <button v-on:click="(rounded=true, squared=false)">Rounded</button>
+        <button v-on:click="(rounded=false, squared=true)">Squared</button>
+        <br />
+
+        <div class="container">
+            <div v-bind:class="[roundedClass, goldenRod]">
+                
+            </div>
+        </div>
+        <br />
+
         Título:
         Contador: {{contador}}
         <br />
@@ -82,6 +92,9 @@ const App = {
             txtDisabled: true,
             isChecked: true,
             rounded: true,
+            squared: true,
+            roundedClass: 'rounded btn',
+            goldenRod: 'goldenRod',
             marcas: [
                 {
                     id: 1, 
