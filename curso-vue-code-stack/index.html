@@ -5,14 +5,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css" integrity="sha512-17AHGe9uFHHt+QaRYieK7bTdMMHBMi8PeWG99Mf/xEcfBLDCn0Gze8Xcx1KoSZxDnv+KnCC+os/vuQ7jrF/nkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .rounded {
+            border-radius: 50px;
+        }
+
+        .square {
+            width: 50px;
+            height: 50px;
+        }
+        .block {
+            
+        }
+    </style>
 </head>
 <body>
     <div id="app">
         <h1>{{titulo}}</h1>
+        <div class="container">
+            <div class="square teal" v-bind:class="{rounded}">
+                
+            </div>
+        </div>
+        <button v-on:click=""></button>
         Título:
         Contador: {{contador}}
         <br />
-        <input type="text" v-model="titulo">
+        <input type="text" v-model="titulo" :disabled="txtDisabled">
         <br />
         <button @click="incrementar">Incrementar</button>
         <br />
@@ -20,7 +40,7 @@
         <br />
         <select v-model="marca_id" @change="setCars('')">
             <option></option>
-            <option v-for="marca in marcas" v-bind:value="marca.id">{{marca.nombre}}</option>
+            <option v-for="marca in marcas" v-bind:value="marca.id" :selected="marca.id == marca_id">{{marca.nombre}}</option>
         </select>
         <button @mouseover="setCars(1)">Toyota</button>
         <button @mouseover="setCars(2)">Honda</button>
@@ -46,6 +66,7 @@
         <span v-for="vehiculo in vehiculos">
             <input type="checkbox" v-bind:value="vehiculo.id" :key="vehiculo.id"> {{ vehiculo.nombre }}
         </span>
+        <input type="checkbox" :checked="isChecked"> Checked
     </div>
 </body>
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -55,9 +76,12 @@ const App = {
         return {
             titulo: 'Follow Rivers',
             contador: null,
-            marca_id: null,
+            marca_id: 1,
             vehiculos: [],
             showModelX: false,
+            txtDisabled: true,
+            isChecked: true,
+            rounded: true,
             marcas: [
                 {
                     id: 1, 
