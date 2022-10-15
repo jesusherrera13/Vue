@@ -22,7 +22,10 @@
 </head>
 <body>
     <div id="app">
-        <h1>{{titulo}}</h1>
+        <div v-show="!isLoaded" class="progress">
+            <div class="indeterminate"></div>
+        </div>
+        <h1 id="contenedor">{{titulo}}</h1>
         <span v-bind:style="{'color': 'goldenrod', 'font-size': '14px', fontWeight: 'bold'}">Subtítulo</span>
         <div class="container">
             <div class="squared teal" v-bind:class="{rounded: rounded, squared}">
@@ -94,6 +97,7 @@ const App = {
             isChecked: true,
             rounded: true,
             squared: true,
+            isLoaded: false,
             roundedClass: 'rounded btn',
             goldenRod: 'goldenRod',
             marcas: [
@@ -136,8 +140,41 @@ const App = {
             ]
         }
     },
+    beforeCreate() {
+        document.querySelector('#contenedor');
+        console.log('Before create... ' + this.contador);
+    },
+    created() {
+        document.querySelector('#contenedor');
+        console.log('Create... ' + this.contador);
+    },
+    beforeMount() {
+        document.querySelector('#contenedor');
+        console.log('beforeMount... ' + this.contador);
+    },
     mounted() {
+        document.querySelector('#contenedor');
+        console.log('mounted... ' + this.contador);
         this.contador = 0;
+        setTimeout(() => {
+            this.isLoaded = true;
+        }, 1000);
+    },
+    beforeUpdate() {
+        document.querySelector('#contenedor');
+        console.log('beforeUpdate... ' + this.contador);
+    },
+    updated() {
+        document.querySelector('#contenedor');
+        console.log('updated... ' + this.contador);
+    },
+    beforeUnmount() {
+        document.querySelector('#contenedor');
+        console.log('beforeUnmounted... ' + this.contador);
+    },
+    unmounted() {
+        document.querySelector('#contenedor');
+        console.log('unmounted... ' + this.contador);
     },
     methods: {
         incrementar() {
